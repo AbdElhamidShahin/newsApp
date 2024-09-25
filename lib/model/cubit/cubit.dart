@@ -9,8 +9,8 @@ import 'package:social_app/veiw/Screens/sports_screen/SportssScreen.dart';
 
 class NewsCubit extends Cubit<NewsState> {
   NewsCubit() : super(NewsIntiatialState());
-  static NewsCubit get(context) => BlocProvider.of<NewsCubit>(context);
 
+  static NewsCubit get(context) => BlocProvider.of<NewsCubit>(context);
 
   int currentIndex = 0;
 
@@ -35,6 +35,7 @@ class NewsCubit extends Cubit<NewsState> {
   }
 
   List<dynamic> business = [];
+
   void getBusiness() {
     emit(NewsGetBusinessLodingState());
 
@@ -64,6 +65,7 @@ class NewsCubit extends Cubit<NewsState> {
   }
 
   List<dynamic> sports = [];
+
   void getSports() {
     emit(NewsGetSportsLodingState());
 
@@ -92,6 +94,7 @@ class NewsCubit extends Cubit<NewsState> {
   }
 
   List<dynamic> science = [];
+
   void getScience() {
     emit(NewsGetScienceLodingState());
 
@@ -120,14 +123,34 @@ class NewsCubit extends Cubit<NewsState> {
     });
   }
 
+  List<dynamic> Search = [];
 
+  void getSearch(String value) {
+    emit(NewsGetSearchLodingState());
 
+    DioHelper.getData(
+      url: 'v2/everything',
+      query: {
+        'q': '$value',
+        'apiKey':
+            'b09ef8e6702144b4a88f4c2adb7647eb', // تأكد من إدخال المفتاح الصحيح هنا
+      },
+    ).then((value) {
+      Search = value.data['articles'];
+
+      print('Number of articles: ${Search.length}');
+
+      emit(NewsGetSearchSuccessState());
+    }).catchError((error) {
+      print('Error: ${error.toString()}');
+      emit(NewsGetSearchErrorState(error: error.toString())); // تمرير الخطأ هنا
+    });
+  }
 
   bool isDark = false;
 
   void changeAppMode() {
     isDark = !isDark;
-    emit(AppChangeModeState()); // تأكد من أن هذه الحالة موجودة
+    emit(AppChangeModeState(isDark)); // تمرير isDark مع الحالة
   }
-
 }

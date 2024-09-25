@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/model/cubit/cubit.dart';
 import 'package:social_app/model/cubit/states.dart';
 
+import '../Veiw_model/Search.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -20,10 +22,17 @@ class HomePage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               actions: [
-                IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+                IconButton(onPressed: () {
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Search()),);
+
+
+                }, icon: const Icon(Icons.search)),
                 IconButton(
                   onPressed: () {
-                    NewsCubit.get(context).changeAppMode(); // لتغيير السمة
+                    NewsCubit.get(context).changeAppMode(); // استخدام NewsCubit بدلاً من
                   },
                   icon: const Icon(Icons.dark_mode_outlined),
                 ),

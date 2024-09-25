@@ -33,4 +33,20 @@ class NewsGetSportsErrorState extends NewsState {
 
   NewsGetSportsErrorState({required this.error});
 }
-class AppChangeModeState extends NewsState {}
+
+class AppChangeModeState extends NewsState {
+  final bool isDark;
+
+  AppChangeModeState(this.isDark);
+}
+
+
+class NewsGetSearchLodingState extends NewsState {}
+
+class NewsGetSearchSuccessState extends NewsState {}
+
+class NewsGetSearchErrorState extends NewsState {
+  final String error;
+
+  NewsGetSearchErrorState({required this.error});
+}

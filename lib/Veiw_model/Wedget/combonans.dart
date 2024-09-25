@@ -20,8 +20,9 @@ class BuildArticalItem extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                image: NetworkImage(
-                    "${article['urlToImage']}"), // استبدل بالصورة الصحيحة من المقال
+                image: article['urlToImage'] != null && article['urlToImage'] != 'https://thumbs.dreamstime.com/b/news-woodn-dice-depicting-letters-bundle-small-newspapers-leaning-left-dice-34802664.jpg'
+                    ? NetworkImage(article['urlToImage'])
+                    : NetworkImage('https://thumbs.dreamstime.com/b/news-woodn-dice-depicting-letters-bundle-small-newspapers-leaning-left-dice-34802664.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
